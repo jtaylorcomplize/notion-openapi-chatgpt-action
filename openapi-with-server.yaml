@@ -1,0 +1,66 @@
+openapi: 3.0.0
+info:
+  title: Notion API
+  description: Access and manipulate Notion workspace content
+  version: 1.0.0
+servers:
+  - url: https://api.notion.com
+paths:
+  /v1/databases:
+    get:
+      summary: List databases
+      operationId: listDatabases
+      responses:
+        '200':
+          description: OK
+  /v1/pages:
+    post:
+      summary: Create page
+      operationId: createPage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Page created
+  /v1/pages/{page_id}:
+    get:
+      summary: Retrieve page
+      operationId: retrievePage
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Page retrieved
+    patch:
+      summary: Update page
+      operationId: updatePage
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Page updated
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: []
